@@ -1,0 +1,47 @@
+// portfolio-implementing-member-methods-1.cpp : This file contains the 'main' function. Program execution begins and ends there.
+#include <iostream>
+#include <string>
+
+class Account {
+private:
+    std::string name;
+    double balance{0.0};
+public:
+    void set_balance(double bal) { balance = bal; }
+    double get_balance() { return balance; }
+    void set_name(std::string n);
+    std::string get_name();
+    bool deposit(double amount);
+    bool withdraw(double amount);
+    void print_account();
+};
+
+void Account::print_account() { std::cout << "[" << name << " : Balance: " << balance << "]" << std::endl; }
+
+void Account::set_name(std::string n) { name = n; }      //usually set in Account.h file however this example is so simple it didn't require it.
+
+std::string Account::get_name() { return name; }
+
+bool Account::deposit(double amount) { balance += amount; return true; }
+
+bool Account::withdraw(double amount) { if (balance >= amount) { balance -= amount; std::cout << "Withdraw: " << amount << " successful" << std::endl; return true;
+}
+else { std::cout << "Withdraw unsuccessful, insufficient funds." << std::endl; return false;}
+}
+
+int main()
+{
+    Account jenny;
+    Account* elizabeth = new Account;
+    jenny.set_name("Jenny's Account");
+    jenny.deposit(200.0);
+    jenny.withdraw(100.0);
+    jenny.withdraw(200.0);
+    jenny.print_account();
+    elizabeth->set_name("Eliabeth's Account");
+    elizabeth->deposit(200.0);
+    elizabeth->withdraw(100.0);
+    elizabeth->withdraw(100.0);
+    elizabeth->print_account();
+    return 0;
+}
